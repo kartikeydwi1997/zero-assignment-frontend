@@ -1,17 +1,37 @@
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
+  /**
+   * Set value of first name, last name and zip code initially as empty string
+   */
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',
     zipcode: '',
   });
+  /**
+   * Set the value of submitted to false initially when button clicked set it to true
+   */
   const [submitted, setSubmitted] = useState(false);
+  /**
+   * Represents the response received from the API call.
+   */
   const [responseText, setResponseText] = useState('');
+  /**
+   * Represents the error received from the API call.
+   */
   const [error, setError] = useState('');
+  /** Check if it is valid to call the API to fetch the output */
   const [valid, setValid] = useState(false);
+  /**
+   * set the button loading to false
+   */
+  const[loading,setloading]=useState(false);
+  /**
+   *  Update the value of first name 
+   */
   const handleFirstNameInputChange = (event) => {
     event.persist();
     setValues((values) => ({
@@ -19,6 +39,9 @@ function App() {
       firstName: event.target.value,
     }));
   };
+    /**
+   *  Update the value of last name 
+   */
   const handleLastNameInputChange = (event) => {
     event.persist();
     setValues((values) => ({
@@ -26,7 +49,9 @@ function App() {
       lastName: event.target.value,
     }));
   };
-
+  /**
+   *  Update the value of zipcode
+   */
   const handleZipCodeInputChange = (event) => {
     event.persist();
     setValues((values) => ({
@@ -34,11 +59,14 @@ function App() {
       zipcode: event.target.value,
     }));
   };
+  /**
+   * @method handleSubmit This function is called when the button is clicked.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     if (values.firstName && values.lastName && values.zipcode) {
       setValid(true);
-      console.log(values);
+      setloading(true);
       const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -49,6 +77,7 @@ function App() {
           const isJson = response.headers.get('content-type')?.includes('application/json');
           const data = isJson && await response.json();
           // check for error response
+          setloading(false);
           if (!response.ok) {
             // get error message from body or default to response status
             const error = (data && data.message) || response.status;
@@ -106,8 +135,9 @@ function App() {
               onChange={handleZipCodeInputChange}
             />
             {submitted && !values.zipcode && <span id='email-error'>Please enter a zipcode</span>}
-            <button className="form-field" type="submit">
-              Submit
+            <button className="form-field" type="submit" disabled={loading}>
+              {loading && <div>Loading...</div>}
+              {!loading && <div>Submit</div>}
             </button>
           </form>
 
