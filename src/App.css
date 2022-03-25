@@ -63,8 +63,16 @@
   font-family: inherit;
   font-size: large;
   margin-bottom: 15px;
+  text-decoration: underline;
+
+  margin-top: 20px;
 }
 
+.chart{
+  width: 100px!important;
+  height: 100px!important;
+  margin-top: 20px;
+}
 .success-message {
   font-family: "Roboto", sans-serif;
   background-color: #3f89f8;

@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import './App.css';
 
+import BarChart from './BarChart';
 function App() {
   /**
    * Set value of first name, last name and zip code initially as empty string
@@ -11,6 +12,8 @@ function App() {
     lastName: '',
     zipcode: '',
   });
+  const [chartData, setChartData] = useState([]);
+  const [populationData, setPopulationData] = useState([]);
   /**
    * Set the value of submitted to false initially when button clicked set it to true
    */
@@ -84,6 +87,16 @@ function App() {
             return Promise.reject(error);
           } else {
             if (!data.hasOwnProperty('Error')) {
+              var graphData=data.neighbors;
+              var label=[];
+              var population=[];
+              // console.log(graphData.forEach((value, index) =>console.log(value)));
+            
+              graphData.forEach((value, index) => label.push('Zipcode '+value[0]) && population.push(value[1]));
+              // console.log(population,label)
+              setPopulationData(population);
+              setChartData(label);
+             
               setResponseText(data.pig_latin_name + "’s zip code is in " + data.county + " and has a population of " + data.population)
               setError("");
             }
@@ -100,6 +113,7 @@ function App() {
     }
     setSubmitted(true);
   }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -142,8 +156,11 @@ function App() {
           </form>
 
         </div>
-        <span className='output'>{responseText}</span>
+        <span className='output'>Result- {responseText}</span>
         <span className='errorText'>{error}</span>
+        <br/>
+     <div classname='chart'>{chartData.length!=0?<BarChart data={chartData} population={populationData} />:null}</div>
+      
       </header>
 
 
