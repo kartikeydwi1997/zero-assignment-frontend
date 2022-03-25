@@ -69,8 +69,7 @@
 }
 
 .chart{
-  width: 100px!important;
-  height: 100px!important;
+ background-color: aliceblue!important;
   margin-top: 20px;
 }
 .success-message {

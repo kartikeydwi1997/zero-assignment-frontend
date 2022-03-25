@@ -53,7 +53,7 @@ function BarChart(chartData, populationData) {
                 title: {
                     display: true,
                     text: 'Bar Chart - Population of nearest 5 neighboring zipcodes',
-                    color:'lightblue',
+                    color:'blue',
                     font: {
 
                         size: 25

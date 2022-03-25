@@ -158,8 +158,8 @@ function App() {
         </div>
         <span className='output'>Result- {responseText}</span>
         <span className='errorText'>{error}</span>
-        <br/>
-     <div classname='chart'>{chartData.length!=0?<BarChart data={chartData} population={populationData} />:null}</div>
+        {/* <br/> */}
+     <div className='chart'>{chartData.length!=0?<BarChart data={chartData} population={populationData} />:null}</div>
       
       </header>
 
